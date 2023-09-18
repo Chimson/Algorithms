@@ -1,12 +1,24 @@
 namespace Lib.Chapter1;
 
+
+// not tested in accepting max/min vals for each type
 public class Rand {
 
   private static Random random = new Random(); 
 
   public static double Uniform(in double a, in double b) {
-    // random number in [a, b)
+    // NextDouble() is in (0.0, 1.0)
     return a + random.NextDouble() * (b - a);
+  }
+
+  public static int Uniform(int N) {
+    // random int in (0, N]
+    return (int) (random.NextDouble() * N);
+  }
+
+  public static int Uniform(in int a, in int b) {
+    // random int in [a, b)
+    return a + Uniform(b - a); 
   }
 
   public static int Discrete(in double[] a) {

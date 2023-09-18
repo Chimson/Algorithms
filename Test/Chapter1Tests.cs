@@ -81,7 +81,7 @@ public class Chapter1Tests {
   public void MaxTest1() {
     double[] arr = {9.0, 4.0, 3.0, -2.0, 10.0, 7.0};
     double expected = 10;
-    double actual = ArrayProcess.Max(arr);
+    double actual = ArrayAlgs.Max(arr);
     Assert.AreEqual(expected, actual);
     Results.Print($"Max({Results.ArrStr<double>(arr)} == {actual})");
   }
@@ -90,7 +90,7 @@ public class Chapter1Tests {
   public void AverageTest1() {
     double[] arr = {9.0, 4.0, 3.0, -2.0, 10.0, 7.0};
     double expected = 31.0 / 6.0;
-    double actual = ArrayProcess.Average(arr);
+    double actual = ArrayAlgs.Average(arr);
     Assert.AreEqual(expected, actual);
     Results.Print($"Average({Results.ArrStr<double>(arr)}) == {actual}");
   }
@@ -98,7 +98,7 @@ public class Chapter1Tests {
   [Test]
   public void CopyTest1() {
     double[] arr = {9.0, 4.0, 3.0, -2.0, 10.0, 7.0};
-    double[] copy = ArrayProcess.Copy(arr);
+    double[] copy = ArrayAlgs.Copy(arr);
     Assert.AreEqual(arr, copy);
     Assert.AreNotSame(arr, copy);
     Results.Print($"Copy(array) passes");
@@ -108,7 +108,7 @@ public class Chapter1Tests {
   public void ReverseTestEven() {
     double[] arr = {9.0, 4.0, 3.0, -2.0, 10.0, 7.0};
     double[] expected = {7.0, 10.0, -2.0, 3.0, 4.0, 9.0};
-    ArrayProcess.Reverse(arr);
+    ArrayAlgs.Reverse(arr);
     Assert.AreEqual(expected, arr);
     Results.Print($"Reverse(9,4,3,-2,10,7) == {Results.ArrStr<double>(arr)}");
   }
@@ -117,7 +117,7 @@ public class Chapter1Tests {
   public void ReverseTestOdd() {
     double[] arr = {9.0, 4.0, 3.0, -2.0, 10.0};
     double[] expected = {10.0, -2.0, 3.0, 4.0, 9.0};
-    ArrayProcess.Reverse(arr);
+    ArrayAlgs.Reverse(arr);
     Assert.AreEqual(expected, arr);
     Results.Print($"Reverse(9,4,3,-2,10) == {Results.ArrStr<double>(arr)}");
   }
@@ -244,15 +244,40 @@ public class Chapter1Tests {
   }
 
   [Test]
-  public void UniformTest() {
+  public void UniformTest00() {
     int N = 10;
     string msg = "random doubles in [0, 10): ";
     for (int i = 0; i < N; ++i) {
-      msg += $"{Rand.Uniform(0, 10)} ";
+      msg += $"{Rand.Uniform(0.0, 10.0)} ";
     }
     Results.Print(msg);
     Assert.Pass();
   }
+
+  [Test]
+  public void UniformTest10() {
+    int N = 10;
+    string msg = "random ints in [0, 100): ";
+    for (int i = 0; i < N; ++i) {
+      msg += $"{Rand.Uniform(100)} ";
+    }
+    Results.Print(msg);
+    Assert.Pass();
+  }
+
+  [Test]
+  public void UniformTest20() {
+    int N = 10;
+    string msg = "random ints in [200, 300): ";
+    for (int i = 0; i < N; ++i) {
+      msg += $"{Rand.Uniform(200, 300)} ";
+    }
+    Results.Print(msg);
+    Assert.Pass();
+  }
+
+
+  
   
   [Test]
   public void DiscreteTest() {
@@ -356,7 +381,7 @@ public class Chapter1Tests {
   public void QueueTest1() {
     // add 0
     Queue<int> queue = new Queue<int>(0);
-    Assert.AreEqual(queue.First.Item, 0);
+    Assert.AreEqual(0, queue.First.Item);
     Assert.AreEqual(1, queue.Size);
     int num = 0;
     foreach (Node<int> node in queue) {
@@ -665,7 +690,7 @@ public class Chapter1Tests {
 
   [Test]
   public void EvaluateTest3() {
-    // no space before last )
+    // no space before last
     string expr = "( 3.0012 + 4.5 ) * 22.1)";
     Exception? ex = Assert.Throws<Exception>(() => MathFunctions.Evaluate(expr));
     Results.Print($"EvaluateTest3: {expr} throws \"{ex?.Message}\"");
@@ -848,7 +873,7 @@ public class Chapter1Tests {
     IStack<string> names = new LinkedListStack<string>("Ben");
     Assert.AreEqual("Ben", names.Pop());
     Assert.True(names.IsEmpty());
-    Assert.AreEqual(names.Size(), 0);
+    Assert.AreEqual(0, names.Size());
     Results.Print($"LinkedListStack2: {names.ToString()}");
   }
 
@@ -934,8 +959,39 @@ public class Chapter1Tests {
     Results.Print($"LinkedListStack11: {names.ToString()}");
   }
 
+  [Test]
+  public void ThreeSum0() {
+    // create a 1000 random ints array 
+    int N = 1000;
+    int[] arr = new int[N];
+    for (int i = 0; i < N; ++i) {
+      arr[i] = Rand.Uniform(-20, 20);  // in [-20, 20]
+    }
+
+    int count = ArrayAlgs.ThreeSum(arr);
+    Results.Print($"num of triplets in array of 1000 ints that sum to 0: {count}");
+
+  }
+
+  [Test]
+  public void ThreeSum1() {
+    int[] arr = {2, -4, 1, 5, -2, 3, 4, -7, 1};
+    string results;
+    int count = ArrayAlgs.ThreeSum(arr, out results);
+    Results.Print($"array: {Results.ArrStr<int>(arr)}\ntriplets that sum to 0:\n{results}");
+  }
+
+  [Test]
+  public void ThreeSum2() {
+    int[] arr = {2, -4, 5, 1, 3, -7};
+    string results;
+    int count = ArrayAlgs.ThreeSum(arr, out results);
+    Results.Print($"array: {Results.ArrStr<int>(arr)}\ntriplets that sum to 0:\n{results}");
+  }
+
+
 }
 
-// STOPPED ON PAGE 185 (not printed)
+// STOPPED ON PAGE 188 (not printed)
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter1Tests.EvaluateTest6"
