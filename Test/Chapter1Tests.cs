@@ -78,6 +78,50 @@ public class Chapter1Tests {
   }
 
   [Test]
+  public void RankTest50() {
+    // finds the 1st duplicate index, if its not at then beginning 
+    int[] arr = {2, 5, 6, 8, 8, 9, 10};
+    int key = 8;
+    int expected = 3;
+    int actual = BinarySearch.Rank(key, arr);
+    Assert.AreEqual(expected, actual);
+    Results.Print($"rank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
+  }
+
+  [Test]
+  public void RankTest51() {
+    // duplicate at the beginning so it returns the index of the second
+    int[] arr = {2, 2, 5, 6, 8, 8, 9, 10};
+    int key = 2;
+    int expected = 1;
+    int actual = BinarySearch.Rank(key, arr);
+    Assert.AreEqual(expected, actual);
+    Results.Print($"rank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
+  }
+
+  [Test]
+  public void RankTest6() {
+    // duplicate (zeros) at the beginning so it returns the index of the second
+    int[] arr = {0, 0, 2, 5, 6, 8, 9, 10};
+    int key = 0;
+    int expected = 1;
+    int actual = BinarySearch.Rank(key, arr);
+    Assert.AreEqual(expected, actual);
+    Results.Print($"rank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
+  }
+
+  [Test]
+  public void RankTest7() {
+    // duplicate (zeros) in the middle  so it returns the index of the second
+    int[] arr = {-6, -2, 0, 0, 2, 9, 10};
+    int key = 0;
+    int expected = 3;
+    int actual = BinarySearch.Rank(key, arr);
+    Assert.AreEqual(expected, actual);
+    Results.Print($"rank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
+  }
+
+  [Test]
   public void MaxTest1() {
     double[] arr = {9.0, 4.0, 3.0, -2.0, 10.0, 7.0};
     double expected = 10;
@@ -208,7 +252,7 @@ public class Chapter1Tests {
     int[] arr = {2, 4, 7, 9, 10, 15};
     int key = 7;
     int expected = 2;
-    int actual = BinarySearch.Rank(key, arr);
+    int actual = BinarySearch.RecRank(key, arr);
     Assert.AreEqual(expected, actual);
     Results.Print($"RecRank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
   }
@@ -218,7 +262,7 @@ public class Chapter1Tests {
     int[] arr = {2, 4, 7, 9, 10, 15};
     int key = 6;
     int expected = -1;
-    int actual = BinarySearch.Rank(key, arr);
+    int actual = BinarySearch.RecRank(key, arr);
     Assert.AreEqual(expected, actual);
     Results.Print($"RecRank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
   }
@@ -228,7 +272,7 @@ public class Chapter1Tests {
     int[] arr = {15, 10, 9, 7, 4, 2};
     int key = 4;
     int expected = -1;
-    int actual = BinarySearch.Rank(key, arr);
+    int actual = BinarySearch.RecRank(key, arr);
     Assert.AreEqual(expected, actual);
     Results.Print($"RecRank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
   }
@@ -238,7 +282,52 @@ public class Chapter1Tests {
     int[] arr = {2, 5, 6, 8, 9, 10};
     int key = 9;
     int expected = 4;
-    int actual = BinarySearch.Rank(key, arr);
+    int actual = BinarySearch.RecRank(key, arr);
+    Assert.AreEqual(expected, actual);
+    Results.Print($"RecRank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
+  }
+
+  [Test]
+  public void RecRankTest50() {
+    // finds the 1st duplicate index, if its not at then beginning 
+    int[] arr = {2, 5, 6, 8, 8, 9, 10};
+    int key = 8;
+    int expected = 3;
+    int actual = BinarySearch.RecRank(key, arr);
+    Assert.AreEqual(expected, actual);
+    Results.Print($"RecRank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
+  }
+
+  [Test]
+  public void RecRankTest51() {
+    // duplicate at the beginning so it returns the index of the second
+    int[] arr = {2, 2, 5, 6, 8, 8, 9, 10};
+    int key = 2;
+    int expected = 1;
+    int actual = BinarySearch.RecRank(key, arr);
+    Assert.AreEqual(expected, actual);
+    Results.Print($"RecRank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
+  }
+
+  [Test]
+  public void RecRankTest6() {
+    // duplicate (zeros) at the beginning so it returns the index of the second
+    int[] arr = {0, 0, 2, 5, 6, 8, 9, 10};
+    int key = 0;
+    int expected = 1;
+    int actual = BinarySearch.RecRank(key, arr);
+    Assert.AreEqual(expected, actual);
+    Results.Print($"RecRank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
+  }
+
+  [Test]
+  public void RecRankTest7() {
+    // duplicate (zeros) in the middle  so it returns the index of the second
+    // opposite of non-zero case
+    int[] arr = {-6, -2, 0, 0, 2, 9, 10};
+    int key = 0;
+    int expected = 3;
+    int actual = BinarySearch.RecRank(key, arr);
     Assert.AreEqual(expected, actual);
     Results.Print($"RecRank({key}, {Results.ArrStr<int>(arr)}) == {actual}");
   }
@@ -969,8 +1058,8 @@ public class Chapter1Tests {
     }
 
     int count = ArrayAlgs.ThreeSum(arr);
-    Results.Print($"num of triplets in array of 1000 ints that sum to 0: {count}");
-
+    Results.Print($"ThreeSum0: num of triplets in array of 1000 ints that sum to 0: {count}");
+    Assert.Pass();
   }
 
   [Test]
@@ -978,7 +1067,8 @@ public class Chapter1Tests {
     int[] arr = {2, -4, 1, 5, -2, 3, 4, -7, 1};
     string results;
     int count = ArrayAlgs.ThreeSum(arr, out results);
-    Results.Print($"array: {Results.ArrStr<int>(arr)}\ntriplets that sum to 0:\n{results}");
+    Results.Print($"ThreeSum1 array: {Results.ArrStr<int>(arr)}\ntriplets that sum to 0:\n{results}");
+    Assert.AreEqual(5, count);
   }
 
   [Test]
@@ -986,12 +1076,85 @@ public class Chapter1Tests {
     int[] arr = {2, -4, 5, 1, 3, -7};
     string results;
     int count = ArrayAlgs.ThreeSum(arr, out results);
-    Results.Print($"array: {Results.ArrStr<int>(arr)}\ntriplets that sum to 0:\n{results}");
+    Results.Print($"ThreeSum2 array: {Results.ArrStr<int>(arr)}\ntriplets that sum to 0:\n{results}");
+    Assert.AreEqual(2, count);
+  }
+  
+  [Test]
+  public void CustomStopwatch0() {
+    // create a 2000 random ints array 
+    CustomStopwatch build_arr = new CustomStopwatch();
+    int N = 1000;
+    int[] arr = new int[N];
+    for (int i = 0; i < N; ++i) {
+      arr[i] = Rand.Uniform(-100, 100);  // in [-20, 20]
+    }
+    double build_stop = build_arr.ElapsedTime(); 
+
+    // time ThreeSum
+    CustomStopwatch three_stop = new CustomStopwatch();
+    ArrayAlgs.ThreeSum(arr);
+    double three_time= three_stop.ElapsedTime();
+    Results.Print($"build random array elapsed time: {build_stop} seconds\n");   
+    Results.Print($"CustomStopWatch ThreeSum elapsed time: {three_time} seconds");
+    Assert.Pass();
   }
 
+  [Test]
+  public void Stopwatch0() {
+    // create a 2000 random ints array 
+    int N = 1000;
+    int[] arr = new int[N];
+    for (int i = 0; i < N; ++i) {
+      arr[i] = Rand.Uniform(-100, 100);  // in [-20, 20]
+    }
+
+    // time ThreeSum
+    System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+    watch.Start();
+    ArrayAlgs.ThreeSum(arr);
+    watch.Stop();
+    double timespan = watch.Elapsed.TotalSeconds;
+    Results.Print($"StopWatch ThreeSum elapsed time: {timespan} seconds");
+    Assert.Pass();
+  }
+
+  [Test]
+  public void TwoSum0() {
+    int[] arr = {-3, 4, 7, -7, 3,-4};
+    string results;
+    int count = ArrayAlgs.TwoSum(arr, out results);
+    Results.Print($"TwoSum0: returns a count of {count}:\n{results}");
+    Assert.AreEqual(count, 3);
+  }
+
+  [Test]
+  public void TwoSum1() {
+    // with a non-zero duplicate pair 
+    int[] arr = {-3, 4, 4, 7, -7, 3,-4, -4};
+    string results;
+    int count = ArrayAlgs.TwoSum(arr, out results);
+    Results.Print($"TwoSum1: returns a count of {count}:\n{results}");
+    Assert.AreEqual(4, count);
+  }
+
+  [Test]
+  public void TwoSum2() {
+    // with a zero duplicate pair (in the middle when sorted), skips the zeros
+    /*
+      sorted: {-7, -4, -3, 0, 0, 3, 4, 7,}
+      BinSearch(-0) returns 3 at i = 3 
+        so if is skipped since 3 !> 3, so no ++count
+    */ 
+    int[] arr = {0, -3, 4, 7, -7, 3, 0, -4};
+    string results;
+    int count = ArrayAlgs.TwoSum(arr, out results);
+    Results.Print($"TwoSum2: returns a count of {count}:\n{results}");
+    Assert.AreEqual(count, 3);
+  }
 
 }
 
-// STOPPED ON PAGE 188 (not printed)
+// STOPPED ON PAGE 190 (not printed)
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter1Tests.EvaluateTest6"

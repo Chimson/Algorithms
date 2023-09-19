@@ -1,5 +1,9 @@
 namespace Lib.Chapter1;
 
+/*
+Rank and RecRank both handle duplicates in the same way
+  see unit test for specific cases and quirks
+*/
 public class BinarySearch {
   
   public static int Rank(in int key, in int[] a) {
