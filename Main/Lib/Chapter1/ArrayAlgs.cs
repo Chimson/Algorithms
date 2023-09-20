@@ -45,7 +45,7 @@ public class ArrayAlgs {
 
   public static int ThreeSum(in int[] arr) {
     // how many triplets of ints add to 0 in an array
-    // brute force alg that checks each unique triplet
+    // brute force alg that checks each unique triplet, O(N^3)
     int N = arr.Length;
     int count = 0;
     for (int i = 0; i < N; ++i) {
@@ -78,12 +78,28 @@ public class ArrayAlgs {
     return count;
   }
 
+  public static int ThreeSumFast(in int[] arr) {
+    // faster version, O(N^2Log(N))
+    // similar quirks with duplicates as TwoSum
+    int N = arr.Length;
+    int count = 0;
+    Array.Sort(arr);
+    for (int i = 0; i < N; ++i) {
+      for (int j = i + 1; j < N; ++j) {
+        if (BinarySearch.RecRank(-arr[i]-arr[j], arr) > j) {
+          ++count;
+        }
+      }
+    }
+    return count;  
+  }
+
   public static int TwoSum(in int[] arr, out string results) {
     // assume the array has unique ints, finds the pair that adds to 0
     //   will sometimes work if there is a duplicate of an (a, -a) pair
     //   see unit test for bug on duplicate of zeros case   
     // based on finding -a[i] for each a[i]
-    // faster than brute force, by sorting and using binary search
+    // faster than brute force, by sorting and using binary search, O(N*Log(N))
     // Sort uses QuickSort, Insertion, or Heapsort depending on the size 
     results = "";
     int N = arr.Length;

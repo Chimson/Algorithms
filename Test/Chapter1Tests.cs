@@ -1057,8 +1057,12 @@ public class Chapter1Tests {
       arr[i] = Rand.Uniform(-20, 20);  // in [-20, 20]
     }
 
+    System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+    watch.Start();
     int count = ArrayAlgs.ThreeSum(arr);
-    Results.Print($"ThreeSum0: num of triplets in array of 1000 ints that sum to 0: {count}");
+    watch.Stop();
+    double timespan = watch.Elapsed.TotalSeconds;
+    Results.Print($"ThreeSum0: num of triplets in array of 1000 ints that sum to 0 is {count} found in {timespan} seconds");
     Assert.Pass();
   }
 
@@ -1153,8 +1157,56 @@ public class Chapter1Tests {
     Assert.AreEqual(count, 3);
   }
 
+  [Test]
+  public void ThreeSumFast0() {
+    // create a 1000 random ints array 
+    int N = 1000;
+    int[] arr = new int[N];
+    for (int i = 0; i < N; ++i) {
+      arr[i] = Rand.Uniform(-20, 20);  // in [-20, 20]
+    }
+
+    System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+    watch.Start();
+    int count = ArrayAlgs.ThreeSumFast(arr);
+    watch.Stop();
+    double timespan = watch.Elapsed.TotalSeconds;
+    Results.Print($"ThreeSumFast0: num of triplets in array of 1000 ints that sum to 0 is {count} found in {timespan} seconds");
+    Assert.Pass();
+  }
+
+  [Test]
+  public void ThreeSumFast1() {
+    int[] arr = {2, -4, 1, 5, -2, 3, 4, -7, 1};
+    int count = ArrayAlgs.ThreeSumFast(arr);
+    Results.Print($"ThreeSumFast1: num of triplets that sum to 0: {count}");
+    Assert.AreEqual(5, count);
+  }
+
+  [Test]
+  public void ThreeSumFast2() {
+    int[] arr = {2, -4, 5, 1, 3, -7};
+    int count = ArrayAlgs.ThreeSumFast(arr);
+    Results.Print($"ThreeSumFast1: num of triplets that sum to 0: {count}");
+    Assert.AreEqual(2, count);
+  }
+
+  [Test]
+  public void DoublingRatioThreeSum0() {
+    Results.Print("ThreeSum Doubling Test:\n");
+    DoublingRatioThreeSum.Ratio(ArrayAlgs.ThreeSum);
+    Assert.Pass();
+  }
+
+  [Test]
+  public void DoublingRatioThreeSumFast0() {
+    Results.Print("ThreeSumFast Doubling Test:\n");
+    DoublingRatioThreeSum.Ratio(ArrayAlgs.ThreeSumFast);
+    Assert.Pass();
+  }
+
 }
 
-// STOPPED ON PAGE 190 (not printed)
+// STOPPED ON PAGE 209 (not printed)
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter1Tests.EvaluateTest6"
