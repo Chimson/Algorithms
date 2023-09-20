@@ -1207,6 +1207,6 @@ public class Chapter1Tests {
 
 }
 
-// STOPPED ON PAGE 209 (not printed)
+// STOPPED ON PAGE 235 (not printed)
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter1Tests.EvaluateTest6"
