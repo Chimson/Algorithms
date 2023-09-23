@@ -1129,7 +1129,7 @@ public class Chapter1Tests {
     string results;
     int count = ArrayAlgs.TwoSum(arr, out results);
     Results.Print($"TwoSum0: returns a count of {count}:\n{results}");
-    Assert.AreEqual(count, 3);
+    Assert.AreEqual(3, count);
   }
 
   [Test]
@@ -1154,7 +1154,7 @@ public class Chapter1Tests {
     string results;
     int count = ArrayAlgs.TwoSum(arr, out results);
     Results.Print($"TwoSum2: returns a count of {count}:\n{results}");
-    Assert.AreEqual(count, 3);
+    Assert.AreEqual(3, count);
   }
 
   [Test]
@@ -1204,6 +1204,28 @@ public class Chapter1Tests {
     DoublingRatioThreeSum.Ratio(ArrayAlgs.ThreeSumFast);
     Assert.Pass();
   }
+
+  [Test]
+  public void UnionFind0() {
+    int[] initial = {0,1,2,3,4,5,6,7};
+    IUnionFind uf = new QuickFind(8);
+    uf.Union(3, 7);  // [0, 1, 2, 7, 4, 5, 6, 7]
+    uf.Union(7, 2);  // [0, 1, 2, 2, 4, 5, 6, 2]
+    uf.Union(2, 1);  // [0, 1, 1, 1, 4, 5, 6, 1]
+    uf.Union(2, 3);  // [0, 1, 1, 1, 4, 5, 6, 1]
+    uf.Union(5, 6);  // [0, 1, 1, 1, 4, 6, 6, 1]
+    int[] expected = {0, 1, 1, 1, 4, 6, 6, 1};
+    Assert.AreEqual(6, uf.Find(5));
+    Assert.AreEqual(expected, uf.ID);
+    Assert.AreEqual(4, uf.Count());
+    Assert.IsTrue(uf.Connected(1, 7));
+    string msg = "UnionFind0: ";
+    msg += Results.ArrStr<int>(initial) + " with:\n";
+    msg += "u(3,7), u(7,2), u(2,1), u(2,3), u(5,6)\n";
+    msg += $"{Results.ArrStr<int>(uf.ID)}";
+    Results.Print(msg);
+  }
+
 
 }
 

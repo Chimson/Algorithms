@@ -1,19 +1,25 @@
 namespace Lib.Chapter1;
 
-public class UnionFind : IUnionFind {
+public class QuickFind : IUnionFind {
   
-  // inherits fields:
+  // inherits fields and methods:
   //  int[] ID
-  //  int Count
+  //  bool Connected(int, p, int q)
 
-  public UnionFind(int N) : base(N) {}
+  private int count;  // easier to place this here rather than IUnionFind abstract class
+
+  public QuickFind(int N) : base(N) {
+    count = N;
+  }
+  
+  override public int Count() => count;
 
   override public int Find(int p) {
     return ID[p];
   }
 
   override public void Union(int p, int q) {
-    // place p and q in the same component (equivalence class) if they are not already
+    // place p and q in the same component (like an equivalence class or set) if they are not already
     
     int pID = Find(p);
     int qID = Find(q);
@@ -25,12 +31,7 @@ public class UnionFind : IUnionFind {
         ID[i] = qID;
       }
     }
-    // --Count;
-    // UNFINISHED
+    --count;
   }
-
-  public override void InitializeNetwork(int[] input) {
-    throw new NotImplementedException();
-  }
-
 }
+
