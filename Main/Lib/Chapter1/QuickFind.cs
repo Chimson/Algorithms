@@ -1,5 +1,8 @@
 namespace Lib.Chapter1;
 
+// union() is always O(n), worst case scan through whole ID array
+// if unioning an entire array into one component, worst case is O(n^2)
+
 public class QuickFind : IUnionFind {
   
   // inherits fields and methods:

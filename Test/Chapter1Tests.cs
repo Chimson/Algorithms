@@ -1206,7 +1206,7 @@ public class Chapter1Tests {
   }
 
   [Test]
-  public void UnionFind0() {
+  public void QuickFind0() {
     int[] initial = {0,1,2,3,4,5,6,7};
     IUnionFind uf = new QuickFind(8);
     uf.Union(3, 7);  // [0, 1, 2, 7, 4, 5, 6, 7]
@@ -1219,16 +1219,75 @@ public class Chapter1Tests {
     Assert.AreEqual(expected, uf.ID);
     Assert.AreEqual(4, uf.Count());
     Assert.IsTrue(uf.Connected(1, 7));
-    string msg = "UnionFind0: ";
+    string msg = "QuickFind0: ";
     msg += Results.ArrStr<int>(initial) + " with:\n";
     msg += "u(3,7), u(7,2), u(2,1), u(2,3), u(5,6)\n";
     msg += $"{Results.ArrStr<int>(uf.ID)}";
     Results.Print(msg);
   }
 
+  [Test]
+  public void QuickUnion0() {
+    int[] initial = {0,1,2,3,4,5,6,7};
+    IUnionFind uf = new QuickUnion(8);
+    uf.Union(3, 7);  // 0,1,2,7,4,5,6,7
+    uf.Union(7, 2);  // 0,1,2,7,4,5,6,2
+    uf.Union(2, 1);  // 0,1,1,7,4,5,6,2
+    uf.Union(2, 3);  // 0,1,1,7,4,5,6,2
+    uf.Union(5, 6);  // 0,1,1,7,4,6,6,2  
+    int[] expected = {0, 1, 1, 7, 4, 6, 6, 2};
+    Assert.AreEqual(6, uf.Find(5));
+    Assert.AreEqual(expected, uf.ID);
+    Assert.AreEqual(4, uf.Count());
+    Assert.IsTrue(uf.Connected(1, 7));
+    string msg = "QuickUnion0: ";
+    msg += Results.ArrStr<int>(initial) + " with:\n";
+    msg += "u(3,7), u(7,2), u(2,1), u(2,3), u(5,6)\n";
+    msg += $"{Results.ArrStr<int>(uf.ID)}";
+    Results.Print(msg);
+  }
+
+  [Test]
+  public void QuickUnion1() {
+    // example pg. 238
+    IUnionFind uf = new QuickUnion(10);
+    uf.Union(4, 3); 
+    uf.Union(3, 8); 
+    uf.Union(6, 5); 
+    uf.Union(9, 4); 
+    uf.Union(2, 1);
+    uf.Union(8, 9);
+    uf.Union(5, 0);
+    uf.Union(7, 2);
+    uf.Union(6, 1);
+    uf.Union(1, 0);
+    uf.Union(6, 7); 
+    int[] expected = {1, 1, 1, 8, 3, 0, 5, 1, 8, 8};
+    Assert.AreEqual(1, uf.Find(5));
+    Assert.AreEqual(expected, uf.ID);
+    Assert.AreEqual(2, uf.Count());
+    Assert.IsTrue(uf.Connected(4, 9));
+    string msg = "QuickUnion1: example from pg. 238 passes";
+    Results.Print(msg);
+  }
+  /*
+  Component:
+  1
+    0
+      5
+        7
+    2
+    7
+  Component:
+  8
+    3
+      4
+    9
+  */
+
 
 }
 
-// STOPPED ON PAGE 235 (not printed)
+// STOPPED ON PAGE 240 (not printed)
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter1Tests.EvaluateTest6"
