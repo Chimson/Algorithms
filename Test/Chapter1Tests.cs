@@ -1250,6 +1250,7 @@ public class Chapter1Tests {
   [Test]
   public void QuickUnion1() {
     // example pg. 238
+    int[] initial = {0,1,2,3,4,5,6,7,8,9};
     IUnionFind uf = new QuickUnion(10);
     uf.Union(4, 3); 
     uf.Union(3, 8); 
@@ -1267,24 +1268,70 @@ public class Chapter1Tests {
     Assert.AreEqual(expected, uf.ID);
     Assert.AreEqual(2, uf.Count());
     Assert.IsTrue(uf.Connected(4, 9));
-    string msg = "QuickUnion1: example from pg. 238 passes";
+    string msg = "QuickUnion1: ";
+    msg += Results.ArrStr<int>(initial) + " with:\n";
+    msg += "u(4,3), u(3,8), u(6,5), u(9,4), u(2,1)\n";
+    msg += "u(8,9), u(5,0), u(7,2), u(6,1), u(1,0), u(6,7)\n";
+    msg += $"{Results.ArrStr<int>(uf.ID)}";
     Results.Print(msg);
+    /*
+    Component:
+    1
+      0
+        5
+          6
+      2
+      7
+    Component:
+    8
+      3
+        4
+      9
+    */
   }
-  /*
-  Component:
-  1
-    0
-      5
-        7
-    2
-    7
-  Component:
-  8
-    3
-      4
-    9
-  */
 
+  [Test]
+  public void WeightedQuickUnion1() {
+    // example pg. 238 and 242, same as QuickUnion1, different structure
+    int[] initial = {0,1,2,3,4,5,6,7,8,9};
+    IUnionFind uf = new WeightedQuickUnion(10);
+    uf.Union(4, 3); 
+    uf.Union(3, 8); 
+    uf.Union(6, 5); 
+    uf.Union(9, 4); 
+    uf.Union(2, 1);
+    uf.Union(8, 9);
+    uf.Union(5, 0);
+    uf.Union(7, 2);
+    uf.Union(6, 1);
+    uf.Union(1, 0);
+    uf.Union(6, 7); 
+    int[] expected = {6, 2, 6, 4, 4, 6, 6, 2, 4, 4};
+    Assert.AreEqual(6, uf.Find(6));
+    Assert.AreEqual(expected, uf.ID);
+    Assert.AreEqual(2, uf.Count());
+    Assert.IsTrue(uf.Connected(4, 9));
+    string msg = "WeightedQuickUnion1: ";
+    msg += Results.ArrStr<int>(initial) + " with:\n";
+    msg += "u(4,3), u(3,8), u(6,5), u(9,4), u(2,1)\n";
+    msg += "u(8,9), u(5,0), u(7,2), u(6,1), u(1,0), u(6,7)\n";
+    msg += $"{Results.ArrStr<int>(uf.ID)}";
+    Results.Print(msg);
+    /*
+    4
+      3
+      8
+      9
+    6
+      0
+      2
+        1 
+        7
+      5
+    */  
+  }
+
+  // TODO: Add worst cases for QuickFind QuickUnion, WeightedQuickUnion
 
 }
 
