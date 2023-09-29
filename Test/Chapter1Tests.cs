@@ -1227,6 +1227,23 @@ public class Chapter1Tests {
   }
 
   [Test]
+  public void QuickFindWorstCase() {
+    // O(N) for each union call
+    // O(n^2) when connecting to a small number of components
+    IUnionFind uf = new QuickFind(5);
+    int[] initial = new int[uf.ID.Length];
+    uf.ID.CopyTo(initial, 0);
+    uf.Union(1,2);  // [0, 2, 2, 3, 4]
+    uf.Union(2,3);  // [0, 3, 3, 3, 4]
+    uf.Union(3,4);  // [0, 4, 4, 4, 4]
+    uf.Union(4,0);  // [0, 0, 0, 0, 0]
+    int[] expected = {0, 0, 0, 0, 0};
+    Assert.AreEqual(expected, uf.ID);
+    Results.Print($"QuickFindWorstCase: {Results.ArrStr<int>(initial)}" + 
+      $" becomes {Results.ArrStr<int>(uf.ID)}");
+  }
+
+  [Test]
   public void QuickUnion0() {
     int[] initial = {0,1,2,3,4,5,6,7};
     IUnionFind uf = new QuickUnion(8);
@@ -1289,6 +1306,22 @@ public class Chapter1Tests {
       9
     */
   }
+  [Test]
+  public void QuickUnionWorstCase() {
+    // when all connected, each as child of the next, travel the whole tree for each find on 0
+    // each Find is O(n) so this is O(n^2) in total
+    IUnionFind uf = new QuickUnion(5);
+    int[] initial = new int[uf.ID.Length];
+    uf.ID.CopyTo(initial, 0);
+    uf.Union(0, 1);   // {1, 1, 2, 3, 4}
+    uf.Union(0, 2);   // {1, 2, 2, 3, 4}
+    uf.Union(0, 3);   // {1, 2, 3, 3, 4}
+    uf.Union(0, 4);   // {1, 2, 3, 4, 4}
+    int[] expected = {1, 2, 3, 4, 4};
+    Assert.AreEqual(expected, uf.ID);
+    Results.Print($"QuickUnionWorstCase: {Results.ArrStr<int>(initial)}" + 
+      $" becomes {Results.ArrStr<int>(uf.ID)}");
+  }
 
   [Test]
   public void WeightedQuickUnion1() {
@@ -1331,10 +1364,43 @@ public class Chapter1Tests {
     */  
   }
 
-  // TODO: Add worst cases for QuickFind QuickUnion, WeightedQuickUnion
+  [Test]
+  public void WeightedQuickUnionWorstCase() {
+    // so Find and Union are both O(lg(N)), O(Nlg(N)) over all unions
+    // depth of any node (SZ) is at most O(lg(N))
+    //   tree with the smaller size (in nodes) is always made a child of the larger tree 
+    // O(NlgN) when there are N/2 trees and then combined recursively until all on one tree
+    //   when the trees are always same size, all depths are always forced to increase by 1
+    //   N nodes divided into N/2 trees, N/2 trees divided into N/4 trees, ... , until 1 tree 
+    IUnionFind uf = new WeightedQuickUnion(8);
+    int[] initial = new int[uf.ID.Length];
+    uf.ID.CopyTo(initial, 0);
+    uf.Union(0, 1);  // ID:{0, 0, 2, 3, 4, 5, 6, 7}; SZ:{2, 1, 1, 1, 1, 1, 1, 1}
+    uf.Union(2, 3);  // ID:{0, 0, 2, 2, 4, 5, 6, 7}; SZ:{2, 1, 2, 1, 1, 1, 1, 1}
+    uf.Union(4, 5);  // ID:{0, 0, 2, 2, 4, 4, 6, 7}; SZ:{2, 1, 2, 1, 2, 1, 1, 1}
+    uf.Union(6, 7);  // ID:{0, 0, 2, 2, 4, 4, 6, 6}; SZ:{2, 1, 2, 1, 2, 1, 2, 1}
+    uf.Union(0, 2);  // ID:{0, 0, 0, 2, 4, 4, 6, 6}; SZ:{4, 1, 2, 1, 2, 1, 2, 1}
+    uf.Union(4, 6);  // ID:{0, 0, 0, 2, 4, 4, 4, 6}; SZ:{4, 1, 2, 1, 4, 1, 2, 1}
+    uf.Union(0, 4);  // ID:{0, 0, 0, 2, 0, 4, 4, 6}; SZ:{8, 1, 2, 1, 4, 1, 2, 1}
+    int[] expected = {0, 0, 0, 2, 0, 4, 4, 6};
+    Assert.AreEqual(expected, uf.ID);
+    Results.Print($"WeightedQuickUnionWorstCase: {Results.ArrStr<int>(initial)}" + 
+      $" becomes {Results.ArrStr<int>(uf.ID)}");
+    /*
+    0
+      1
+      2
+        3
+      4
+        5
+        6
+          7
+    */
+  }
+
 
 }
 
-// STOPPED ON PAGE 242 (not printed)
+// STOPPED ON PAGE 256 (not printed)
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter1Tests.EvaluateTest6"
