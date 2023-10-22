@@ -39,10 +39,22 @@ public class Chapter2Tests {
     Results.Print("Date.CompareTo() passes");
   }
 
-  [Test]
+	[Test]
   public void DateTest3() {
-    // add a test that checks the exception in CompareTo
-  }
+		// check the null ref 
+		Date date1 = new Date {Day = 23, Month = 10, Year = 1984};
+		Assert.Throws<Exception>(() => date1.CompareTo(null));
+	}
 
+	[Test]
+  public void DateTest4() {
+		// check the null ref 
+		Date date1 = new Date {Day = 23, Month = 10, Year = 1984};
+		Assert.Throws<InvalidCastException>(() => date1.CompareTo("Ben"));
+	}
 
 }
+
+// STOPPED ON PAGE 262 
+// execute one test, without the specific warning printed
+// > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter2Tests.DateTest"
