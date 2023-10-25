@@ -36,7 +36,7 @@ public class Chapter2Tests {
     Assert.AreEqual(1, date1.CompareTo(date6));
     Assert.AreEqual(-1, date1.CompareTo(date7));
     Assert.AreEqual(0, date1.CompareTo(date8));
-    Results.Print("Date.CompareTo() passes");
+    Results.Print("DateTest2: Date.CompareTo() passes");
   }
 
 	[Test]
@@ -44,14 +44,28 @@ public class Chapter2Tests {
 		// check the null ref 
 		Date date1 = new Date {Day = 23, Month = 10, Year = 1984};
 		Assert.Throws<Exception>(() => date1.CompareTo(null));
-	}
+    Results.Print("DateTest3 throws on null ref");
+  }
 
 	[Test]
   public void DateTest4() {
     // check that explicit cast throws
 		Date date1 = new Date {Day = 23, Month = 10, Year = 1984};
 		Assert.Throws<InvalidCastException>(() => date1.CompareTo("Ben"));
-	}
+    Results.Print("DateTest4 throws when Date is compared with a string");
+  }
+
+  [Test]
+  public void SelectionSort1() {
+    // chars implement IComparable.ToCompare
+    IComparable[] arr = {'b', 'e', 'n', 'h', 'a', 'r', 'k', 'i'};
+    Results.Print($"SelectionSort1: {Results.ICompToString(arr)} becomes ");
+    Selection.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+  // add more tests for SelectionSort?
 
 }
 

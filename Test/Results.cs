@@ -57,4 +57,12 @@ public class Results {
     Console.WriteLine($"{Title("Debug Log")}\n{msg}\n*********************");
   }
 
+  public static string ICompToString(IComparable[] arr) {
+    string msg = "";
+    foreach (IComparable c in arr) {
+      msg += $"{c}";
+    }
+    return msg;
+  }
+
 }
