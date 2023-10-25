@@ -48,7 +48,7 @@ public class Chapter2Tests {
 
 	[Test]
   public void DateTest4() {
-		// check the null ref 
+    // check that explicit cast throws
 		Date date1 = new Date {Day = 23, Month = 10, Year = 1984};
 		Assert.Throws<InvalidCastException>(() => date1.CompareTo("Ben"));
 	}

@@ -6,7 +6,6 @@ public interface ISort {
 
   private static bool Less(IComparable a, IComparable b) {
     // CompareTo() returns -1 <, 0 ==, 1 >
-    
     return a.CompareTo(b) < 0;
   }
 
