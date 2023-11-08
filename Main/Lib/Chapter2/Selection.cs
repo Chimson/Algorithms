@@ -5,6 +5,9 @@ namespace Lib.Chapter2;
 public class Selection : ISort {
   
   public static void Sort(IComparable[] arr) {
+    // for each member of the array look ahead and replace with the smallest element
+    // O(n^2) in time complexity, even if the array is already sorted, or is filled with the same vals
+
     int N = arr.Length;
 
     for (int i = 0; i < N; ++i) {

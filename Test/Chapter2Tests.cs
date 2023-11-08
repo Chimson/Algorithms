@@ -65,10 +65,50 @@ public class Chapter2Tests {
     Assert.True(ISort.IsSorted(arr));
   }
 
-  // add more tests for SelectionSort?
+  [Test]
+  public void SelectionSort2() {
+    // is O(n^2) even though it is sorted
+    IComparable[] arr = {'a', 'b', 'c', 'd', 'e'};
+    Results.Print($"SelectionSort2: {Results.ICompToString(arr)} becomes ");
+    Selection.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+  [Test]
+  public void InsertionSort1() {
+    // chars implement IComparable.ToCompare
+    IComparable[] arr = {'b', 'e', 'n', 'h', 'a', 'r', 'k', 'i'};
+    Results.Print($"InsertionSort1: {Results.ICompToString(arr)} becomes ");
+    Insertion.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+  [Test]
+  public void InsertionSort2() {
+    // worst case, O(n^2)
+    IComparable[] arr = {'e', 'd', 'c', 'b', 'a'};
+    Results.Print($"InsertionSort2: {Results.ICompToString(arr)} becomes ");
+    Insertion.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+  [Test]
+  public void InsertionSort3() {
+    // is O(n) on the best case
+    IComparable[] arr = {'a', 'b', 'c', 'd', 'e'};
+    Results.Print($"InsertionSort3: {Results.ICompToString(arr)} becomes ");
+    Insertion.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+  
 
 }
 
-// STOPPED ON PAGE 262 
+// STOPPED ON PAGE 271
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter2Tests.DateTest"
