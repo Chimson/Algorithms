@@ -105,10 +105,29 @@ public class Chapter2Tests {
     Assert.True(ISort.IsSorted(arr));
   }
 
+  [Test]
+  public void ShellSort1() {
+    IComparable[] arr = {'b', 'e', 'n', 'h', 'a', 'r', 'k', 'i'};
+    Results.Print($"ShellSort1: {Results.ICompToString(arr)} becomes ");
+    Shell.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+  [Test]
+  public void ShellSort2() {
+    IComparable[] arr = {'e', 'd', 'c', 'b', 'a'};
+    Results.Print($"ShellSort2: {Results.ICompToString(arr)} becomes ");
+    Shell.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+
   
 
 }
 
-// STOPPED ON PAGE 271
+// STOPPED ON PAGE 283
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter2Tests.DateTest"
