@@ -123,11 +123,24 @@ public class Chapter2Tests {
     Assert.True(ISort.IsSorted(arr));
   }
 
-
+  [Test]
+  public void MergeTest1() {
+    // used in MergeSort
+    // when its sorted by halves, Merge returns it totally sorted
+    IComparable[] arr = {2, 3, 5, 1, 6, 9};
+    int low = 0; 
+    int high = 5; 
+    int mid = low + ((high - low) / 2);
+    IMerge.Merge(arr, low, mid, high);
+    Results.Print(Results.ICompToString(arr));
+    Assert.Pass();
+  }
   
 
 }
 
 // STOPPED ON PAGE 283
+// implemented IMerge.Merge, yet to read through its explaination 
+
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter2Tests.DateTest"
