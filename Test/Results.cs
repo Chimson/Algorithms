@@ -58,10 +58,12 @@ public class Results {
   }
 
   public static string ICompToString(IComparable[] arr) {
-    string msg = "";
+    string msg = "[";
     foreach (IComparable c in arr) {
-      msg += $"{c}";
+      msg += $"{c}, ";
     }
+    msg = msg.TrimEnd(' ').TrimEnd(',');
+    msg += "]";
     return msg;
   }
 

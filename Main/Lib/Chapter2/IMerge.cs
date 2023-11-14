@@ -2,10 +2,14 @@ namespace Lib.Chapter2;
 
 public class IMerge {
 
+
   public static void Merge(IComparable[] arr, int low, int mid, int high) {
+    // sort an array whose halves are seperately sorted
+    // the result is totally sorted
+
 
     IComparable[] aux = new IComparable[arr.Length]; 
-    
+
     // copy to aux
     arr.CopyTo(aux, 0);  
 

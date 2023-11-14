@@ -132,15 +132,26 @@ public class Chapter2Tests {
     int high = 5; 
     int mid = low + ((high - low) / 2);
     IMerge.Merge(arr, low, mid, high);
-    Results.Print(Results.ICompToString(arr));
-    Assert.Pass();
+    Results.Print($"MergeTest1: 2 3 5 1 6 9 sorts to {Results.ICompToString(arr)}");
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+  [Test]
+  public void MergeTest2() {
+    // case where a half of the array is not seperately sorted
+    IComparable[] arr = {1, 9, 7, 2, 4, 8};
+    int low = 0; 
+    int high = 5; 
+    int mid = low + ((high - low) / 2);
+    IMerge.Merge(arr, low, mid, high);
+    Results.Print($"MergeTest2: 2 3 5 1 6 9 sorts to {Results.ICompToString(arr)}");
+    Assert.False(ISort.IsSorted(arr));
   }
   
 
 }
 
-// STOPPED ON PAGE 283
-// implemented IMerge.Merge, yet to read through its explaination 
+// STOPPED ON PAGE 285
 
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter2Tests.DateTest"
