@@ -151,7 +151,7 @@ public class Chapter2Tests {
 
 }
 
-// STOPPED ON PAGE 285
+// STOPPED ON PAGE 286, but need to review the previous discussion
 
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter2Tests.DateTest"
