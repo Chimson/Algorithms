@@ -148,10 +148,27 @@ public class Chapter2Tests {
     Assert.False(ISort.IsSorted(arr));
   }
   
+  [Test]
+  public void MergeSortTest1() {
+    IComparable[] arr = {5, 4, 3, 2, 1};
+    Results.Print($"MergeSort2: {Results.ICompToString(arr)} becomes ");
+    Merge.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
+
+  [Test]
+  public void MergeSortTest2() {
+    IComparable[] arr = {'b', 'e', 'n', 'h', 'a', 'r', 'k', 'i'};
+    Results.Print($"MergeSort2: {Results.ICompToString(arr)} becomes ");
+    Merge.Sort(arr);
+    Results.Print(Results.ICompToString(arr));
+    Assert.True(ISort.IsSorted(arr));
+  }
 
 }
 
-// STOPPED ON PAGE 286, but need to review the previous discussion
+// STOPPED ON PAGE 290, bottomup mergesort
 
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter2Tests.DateTest"

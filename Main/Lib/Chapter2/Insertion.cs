@@ -8,7 +8,8 @@ public class Insertion : ISort {
     // otherwise stop, because then all to left are in order
     // worst case is O(n^2), when they are in increasing order (backwards)
     // O(n) when already sorted or all of the same value, since the inner loop never executess
-    // works well when there is some order in a random array
+    // works well when there is some order in a random array 
+    // works well with small arrays
 
     int N = arr.Length;
 
