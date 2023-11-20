@@ -29,7 +29,7 @@ public class Merge : IMerge, ISort {
     IMerge.Merge(arr, low, mid, high);
   }
 
-  private static string ArrStr(IComparable[] arr) {
+  public static string ArrStr(IComparable[] arr) {
     // used in debugging, same function in Test.Results
     string arrstr = "[";
     int N = arr.Length;

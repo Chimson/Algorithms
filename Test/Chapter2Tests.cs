@@ -166,9 +166,20 @@ public class Chapter2Tests {
     Assert.True(ISort.IsSorted(arr));
   }
 
+  [Test]
+  public void MergeBUSortTest1() {
+    IComparable[] arr = {5, 4, 3, 2, 1};
+    string msg = $"MergeBUSort1: {Results.ICompToString(arr)} becomes ";
+    MergeBU.Sort(arr);
+    msg += Results.ICompToString(arr);
+    Results.Print(msg);
+    Assert.True(ISort.IsSorted(arr));
+  }
+
 }
 
-// STOPPED ON PAGE 290, bottomup mergesort
+// STOPPED ON PAGE 292, bottomup mergesort explaination (alg is implemented)
+// maybe add more test cases?
 
 // execute one test, without the specific warning printed
 // > dotnet test -warnAsMessage:NUnit2005 Test --filter "Chapter2Tests.DateTest"
