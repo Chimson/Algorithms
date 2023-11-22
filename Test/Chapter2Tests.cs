@@ -178,7 +178,7 @@ public class Chapter2Tests {
 
 }
 
-// STOPPED ON PAGE 292, bottomup mergesort explaination (alg is implemented)
+// STOPPED ON PAGE 301 QuickSort
 // maybe add more test cases?
 
 // execute one test, without the specific warning printed
